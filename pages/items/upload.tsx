@@ -51,7 +51,7 @@ const Upload: NextPage = () => {
         </label>
         <textarea
           className="mt-1 shadow-sm w-full  focus:ring-orange-500
-         rounded-md border-gray-300 focus:border-orange-500"
+         rounded-md border-gray-300 focus:border-orange-500 resize-none"
           rows={4}
         />
       </div>
