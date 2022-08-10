@@ -12,7 +12,7 @@ const Profile: NextPage = () => {
       </div>
       <div className="mt-10 flex justify-around">
         <div className="flex flex-col items-center">
-          <div className="w-14 h-14 text-white bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
             <svg
               className="w-6 h-6"
               fill="none"
@@ -33,7 +33,7 @@ const Profile: NextPage = () => {
           </span>
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-14 h-14 text-white bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
             <svg
               className="w-6 h-6"
               fill="none"
@@ -54,7 +54,7 @@ const Profile: NextPage = () => {
           </span>
         </div>
         <div className="flex flex-col items-center">
-          <div className="w-14 h-14 text-white bg-orange-500 rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
             <svg
               className="w-6 h-6"
               fill="none"
@@ -77,7 +77,7 @@ const Profile: NextPage = () => {
       </div>
       <div className="mt-12">
         <div className="flex space-x-4 items-center">
-          <div className="w-12 h-12 rounded-full bg-slate-400" />
+          <div className="w-12 h-12 rounded-full bg-slate-500" />
           <div>
             <h4 className="text-sm font-bold text-gray-800">니꼬</h4>
             <div className="flex items-center">
