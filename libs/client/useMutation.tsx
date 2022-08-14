@@ -22,7 +22,11 @@ export default function useMutation(
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((response) =>
+        response.json().catch(() => {
+          return;
+        })
+      )
       .then((json) => setData(json))
       .catch(setError)
       .finally(() => setLoading(false));
