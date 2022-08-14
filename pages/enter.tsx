@@ -25,8 +25,8 @@ const Enter: NextPage = () => {
     setMethod("phone");
   };
 
-  const onValid = (data: EnterForm) => {
-    mutation(data);
+  const onValid = (validFormData: EnterForm) => {
+    mutation(validFormData);
   };
   return (
     <div className="mt-16 px-4">
