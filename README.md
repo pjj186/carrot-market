@@ -44,3 +44,9 @@ https://www.twilio.com/
 SendGrid는 거래 및 마케팅 이메일을 위한 고객 커뮤니케이션 플랫폼이다.
 <br>
 https://sendgrid.com/solutions/email-api/
+
+## Iron-Session
+
+Iron session
+데이터를 저장하기 위해 서명되고 암호화된 쿠키를 사용하는 Node.js stateless session 유틸리티.
+Next.js, Express, Nest.js, Fastify 및 모든 Node.js HTTP 프레임워크와 함께 작동합니다. 세션 데이터는 암호화된 쿠키("seals")에 저장됩니다. 그리고 당신의 서버만이 세션 데이터를 디코딩(decode)할 수 있습니다. 세션 ID가 없으므로 서버 관점에서 iron session을 "stateless"로 만듭니다.
