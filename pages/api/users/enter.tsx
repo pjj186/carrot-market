@@ -3,8 +3,11 @@ import withHandler from "@libs/server/withHandler";
 import { ResponseType } from "@libs/server/withHandler";
 import twilio from "twilio";
 import { NextApiRequest, NextApiResponse } from "next";
+import mail from "@sendgrid/mail";
 
 const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
+
+mail.setApiKey(process.env.SENDGRID_KEY!);
 
 async function handler(
   req: NextApiRequest,
@@ -41,6 +44,16 @@ async function handler(
       body: `Your Login Token is ${payload}.`,
     });
     console.log(message);
+  } else if (email) {
+    const email = await mail.send({
+      from: "pjj186@naver.com",
+      to: "pjj186@naver.com",
+      subject: "Yor Carrot Market Verification Email",
+      text: `Your Token is ${payload}`,
+      html: `<strong>Your Token is ${payload}</strong>`,
+    });
+
+    console.log(email);
   }
   res.json({
     ok: true,
