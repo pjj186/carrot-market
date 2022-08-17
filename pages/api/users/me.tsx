@@ -15,8 +15,10 @@ async function handler(
       id: req.session.user?.id,
     },
   });
+  console.log(profile);
   res.json({
     ok: true,
+    ...profile,
   });
 }
 
