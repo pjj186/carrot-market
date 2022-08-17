@@ -15,5 +15,5 @@ const cookieOptions = {
 
 export function withApiSession(fn: any) {
   // API Route에서 session을 받아오기 위한 function
-  return withIronSessionApiRoute(fn, cookieOptions);
+  return withIronSessionApiRoute(fn, cookieOptions); // fn : withHandler
 }
