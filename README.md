@@ -54,3 +54,18 @@ Next.js, Express, Nest.js, Fastify 및 모든 Node.js HTTP 프레임워크와 �
 ## NextAuth.js
 
 Next.js에서 Authentication 구현을 도와주는 패키지이다.
+
+## SWR
+
+SWR은 먼저 캐시로부터 데이터를 반환한 후, fetch 요청(재검증)을 하고, 최종적으로 최신화된 데이터를 가져오는 전략입니다. SWR을 사용하면 컴포넌트는 지속적이며 자동으로 데이터 업데이트 스트림을 받게 됩니다. 그리고 UI는 항상 빠르고 반응적입니다.
+SWR은 React 프레임워크인 Next.js를 만든 동일한 팀이 만들었습니다.
+<br><br>
+<strong>useSWR사용하기</strong>
+
+1. JSON 데이터를 사용하는 일반적인 RESTful API라면 먼저 네이티브 fetch의 단순한 래퍼인 fetcher 함수를 생성해야 합니다.
+   ex) const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+2. 그 다음, useSWR을 import하고, 함수 컴포넌트 내에서 사용하여 시작하면 됩니다.
+   ex) const { data, error } = useSWR('/api/user/123', fetcher)
+
+- 일반적으로, 세 가지 요청 상태가 가능합니다: "loading", "ready", "error". data와 error 값을 사용해 현재 요청의 상태를 알아내고, 해당하는 UI를 반환할 수 있습니다.
