@@ -7,15 +7,11 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  console.log("api/user/me Session : " + JSON.stringify(req.session));
-
-  console.log(req.session.user);
   const profile = await client.user.findUnique({
     where: {
       id: req.session.user?.id,
     },
   });
-  console.log(profile);
   res.json({
     ok: true,
     ...profile,
