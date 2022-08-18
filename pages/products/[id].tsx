@@ -3,15 +3,14 @@ import Button from "@components/button";
 import Layout from "@components/layout";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { Product } from "@prisma/client";
 import Link from "next/link";
+import Skeleton from "@mui/material/Skeleton";
 
 const ItemDetail: NextPage = () => {
   const router = useRouter();
   const { data } = useSWR(
     router.query.id ? `/api/products/${router.query.id}` : null
   );
-  console.log(data);
   return (
     <Layout canGoBack>
       <div className="px-4  py-4">
@@ -20,24 +19,46 @@ const ItemDetail: NextPage = () => {
           <div className="flex cursor-pointer py-3 border-t border-b items-center space-x-3">
             <div className="w-12 h-12 rounded-full bg-slate-300" />
             <div>
-              <p className="text-sm font-medium text-gray-700">
-                {data?.product?.user?.name}
-              </p>
-              <Link href={`users/profiles/${data?.product?.user?.id}`}>
-                <a className="text-xs font-medium text-gray-500">
-                  View profile &rarr;
-                </a>
-              </Link>
+              {!data ? (
+                <Skeleton animation="wave" width={80} height="auto" />
+              ) : (
+                <p className="text-sm font-medium text-gray-700">
+                  {data?.product?.user?.name}
+                </p>
+              )}
+              {!data ? (
+                <Skeleton animation="wave" width={80} height="auto" />
+              ) : (
+                <Link href={`users/profiles/${data?.product?.user?.id}`}>
+                  <a className="text-xs font-medium text-gray-500">
+                    View profile &rarr;
+                  </a>
+                </Link>
+              )}
             </div>
           </div>
           <div className="mt-5">
             <h1 className="text-3xl font-bold text-gray-900">
-              {data?.product?.name}
+              {!data ? (
+                <Skeleton animation="wave" width={100} height="auto" />
+              ) : (
+                data?.product?.name
+              )}
             </h1>
             <span className="text-2xl block mt-3 text-gray-900">
-              ${data?.product?.price}
+              {!data ? (
+                <Skeleton animation="wave" width={80} height="auto" />
+              ) : (
+                "$" + data?.product?.price
+              )}
             </span>
-            <p className=" my-6 text-gray-700">{data?.product?.description}</p>
+            <p className=" my-6 text-gray-700">
+              {!data ? (
+                <Skeleton animation="wave" width="auto" height="auto" />
+              ) : (
+                data?.product?.description
+              )}
+            </p>
             <div className="flex items-center justify-between space-x-2">
               <Button large text="Talk to seller" />
               <button className="p-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500">
