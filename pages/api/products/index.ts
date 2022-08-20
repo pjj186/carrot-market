@@ -7,6 +7,7 @@ async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
+  // 상품 조회
   if (req.method === "GET") {
     const products = await client.product.findMany({
       include: {
@@ -21,9 +22,9 @@ async function handler(
       ok: true,
       products,
     });
-    console.log(products);
   }
 
+  // 상품 등록
   if (req.method === "POST") {
     const {
       body: { name, price, description },

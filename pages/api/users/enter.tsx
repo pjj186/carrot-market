@@ -15,6 +15,7 @@ async function handler(
 ) {
   const { phone, email } = req.body;
   const user = phone ? { phone: phone } : email ? { email: email } : null;
+
   if (!user) {
     res.status(400).json({
       ok: false,
@@ -25,6 +26,7 @@ async function handler(
     data: {
       payload: payload,
       user: {
+        // 해당하는 UserId와 연결
         connectOrCreate: {
           where: {
             ...user,
