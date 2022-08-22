@@ -6,6 +6,8 @@ import useSWR from "swr";
 import { Answer, Post, User } from "@prisma/client";
 import Link from "next/link";
 import { useEffect } from "react";
+import useMutation from "@libs/client/useMutation";
+import { cls } from "@libs/client/utils";
 
 interface AnswerWithUser extends Answer {
   user: User;
@@ -15,7 +17,7 @@ interface PostWithUser extends Post {
   user: User;
   _count: {
     answers: number;
-    wondering: number;
+    wonderings: number;
   };
   answers: AnswerWithUser[];
 }
@@ -23,13 +25,35 @@ interface PostWithUser extends Post {
 interface CommnuityPostResponse {
   ok: boolean;
   post: PostWithUser;
+  isWondering: boolean;
 }
 
 const CommunityPostDetail: NextPage = () => {
   const router = useRouter();
-  const { data, error } = useSWR<CommnuityPostResponse>(
+  const { data, mutate } = useSWR<CommnuityPostResponse>(
     router.query.id ? `/api/posts/${router.query.id}` : null
   );
+  const [wonder] = useMutation(`/api/posts/${router.query.id}/wonder`);
+  const onWonderClick = () => {
+    if (!data) return;
+    mutate(
+      {
+        ...data,
+        post: {
+          ...data?.post,
+          _count: {
+            ...data?.post._count,
+            wonderings: data?.isWondering
+              ? data?.post._count?.wonderings! - 1
+              : data?.post._count?.wonderings! + 1,
+          },
+        },
+        isWondering: !data.isWondering,
+      },
+      false
+    );
+    wonder({});
+  };
 
   useEffect(() => {
     if (data && !data.ok) {
@@ -62,7 +86,13 @@ const CommunityPostDetail: NextPage = () => {
             {data?.post?.question}
           </div>
           <div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[2px]  w-full">
-            <span className="flex space-x-2 items-center text-sm">
+            <button
+              onClick={onWonderClick}
+              className={cls(
+                "flex space-x-2 items-center text-sm",
+                data?.isWondering ? "text-teal-600" : ""
+              )}
+            >
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -77,8 +107,8 @@ const CommunityPostDetail: NextPage = () => {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
-              <span>궁금해요 {data?.post._count.wondering}</span>
-            </span>
+              <span>궁금해요 {data?.post._count.wonderings}</span>
+            </button>
             <span className="flex space-x-2 items-center text-sm">
               <svg
                 className="w-4 h-4"
@@ -107,7 +137,7 @@ const CommunityPostDetail: NextPage = () => {
                   {answer.user.name}
                 </span>
                 <span className="text-xs text-gray-500 block ">
-                  {answer.createdAt}
+                  {answer.createdAt.toString()}
                 </span>
                 <p className="text-gray-700 mt-2">{answer.answer}</p>
               </div>
