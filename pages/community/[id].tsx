@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 
 interface AnswerWithUser extends Answer {
   user: User;
+  _count: { wonderings: number; answers: number };
 }
 
 interface PostWithUser extends Post {
@@ -83,8 +84,9 @@ const CommunityPostDetail: NextPage = () => {
     }
     if (answerData && answerData.ok) {
       reset();
+      mutate();
     }
-  }, [answerData, data, reset, router]);
+  }, [answerData, data, reset, router, mutate]);
 
   return (
     <Layout canGoBack>
@@ -162,7 +164,7 @@ const CommunityPostDetail: NextPage = () => {
                   {answer.user.name}
                 </span>
                 <span className="text-xs text-gray-500 block ">
-                  {answer.createdAt}
+                  {String(answer.createdAt)}
                 </span>
                 <p className="text-gray-700 mt-2">{answer.answer}</p>
               </div>

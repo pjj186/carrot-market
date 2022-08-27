@@ -41,10 +41,12 @@ const Enter: NextPage = () => {
   };
 
   const onValid = (validFormData: EnterForm) => {
+    if (loading) return;
     mutation(validFormData);
   };
 
   const onTokenValid = (validFormData: TokenForm) => {
+    if (tokenLoading) return;
     confirmToken(validFormData);
   };
 
