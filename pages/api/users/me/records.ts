@@ -12,17 +12,17 @@ const handler = async (
     session: { user },
     query: { kind },
   } = req;
-  const kindStr = kind?.toString()!;
   const records = await client.record.findMany({
     where: {
       userId: user?.id,
-      kind: kindStr as Kind,
+      kind: kind as Kind,
     },
     include: { product: true },
   });
   res.json({
     ok: true,
-    [kindStr]: records,
+    records,
+    kind,
   });
 };
 
