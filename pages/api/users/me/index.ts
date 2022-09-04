@@ -14,7 +14,7 @@ async function handler(
   });
   res.json({
     ok: true,
-    ...profile,
+    profile,
   });
 }
 

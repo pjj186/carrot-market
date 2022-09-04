@@ -13,6 +13,7 @@ async function handler(
 
   const reviews = await client.review.findMany({
     where: {
+      // 현재 로그인 한 ID에 달린 리뷰
       createdForId: user?.id,
     },
     include: {
