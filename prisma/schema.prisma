@@ -27,9 +27,9 @@ model User {
   wonderings      Wondering[]
   writtenReviews  Review[]    @relation(name: "writtenReviews")
   receivedReviews Review[]    @relation(name: "receivedReviews")
-  Fav             Fav[]
-  Sale            Sale[]
-  Purchase        Purchase[]
+  favs            Fav[]
+  sales           Sale[]
+  purchases       Purchase[]
   Record          Record[]
 }
 
@@ -52,7 +52,7 @@ model Product {
   name        String
   price       Int
   description String     @db.MediumText
-  Fav         Fav[]
+  favs        Fav[]
   sales       Sale[]
   purchases   Purchase[]
   Record      Record[]
