@@ -2,13 +2,17 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
 
-export default function useUser() {
+interface IuseUser {
+  isPublic: boolean;
+}
+
+export default function useUser({ isPublic = false }: IuseUser) {
   const { data, error } = useSWR("/api/users/me");
   const router = useRouter();
   useEffect(() => {
-    if (data && !data.ok) {
+    if (data && !data.ok && !isPublic) {
       router.replace("/enter");
     }
-  }, [data, router]);
+  }, [data, router, isPublic]);
   return { user: data?.profile, isLoading: !data && !error };
 }
