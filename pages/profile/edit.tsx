@@ -68,7 +68,7 @@ const EditProfile: NextPage = () => {
           kind="phone"
         />
         {errors.formErrors ? (
-          <span className="mt-2 text-red-500 font-bold block">
+          <span className="mt-2 text-red-500 font-medium block text-center">
             {errors.formErrors.message}
           </span>
         ) : null}
