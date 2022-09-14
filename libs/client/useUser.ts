@@ -9,7 +9,7 @@ interface ProfileResponse {
 }
 
 interface IuseUser {
-  isPublic: boolean;
+  isPublic?: boolean;
 }
 
 export default function useUser({ isPublic = false }: IuseUser) {
