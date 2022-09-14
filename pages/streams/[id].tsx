@@ -7,7 +7,7 @@ import { Stream } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface StreamMesssage {
   id: number;
@@ -49,7 +49,10 @@ const Streams: NextPage = () => {
     sendMessage(form);
   };
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    scrollRef?.current?.scrollIntoView();
     if (sendMessageData && sendMessageData.ok) {
       mutate();
     }
@@ -78,6 +81,7 @@ const Streams: NextPage = () => {
                 reversed={message.user.id === user?.id ? true : false}
               />
             ))}
+            <div ref={scrollRef} />
           </div>
           <div className="fixed py-2 bg-white  bottom-0 inset-x-0">
             <form
