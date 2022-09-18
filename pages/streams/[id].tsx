@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import { useEffect, useRef } from "react";
+import messages from "pages/api/streams/[id]/messages";
 
 interface StreamMesssage {
   id: number;
@@ -36,7 +37,8 @@ const Streams: NextPage = () => {
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm<MessageForm>();
   const { data, mutate } = useSWR<StreamResponse>(
-    router.query.id ? `/api/streams/${router.query.id}` : null
+    router.query.id ? `/api/streams/${router.query.id}` : null,
+    { refreshInterval: 1000 }
   );
 
   const [sendMessage, { loading, data: sendMessageData }] = useMutation(
@@ -46,6 +48,21 @@ const Streams: NextPage = () => {
   const onValid = (form: MessageForm) => {
     if (loading) return;
     reset();
+    mutate(
+      (prev) =>
+        prev &&
+        ({
+          ...prev,
+          stream: {
+            ...prev?.stream,
+            messages: [
+              ...prev?.stream.messages,
+              { id: Date.now(), message: form.message, user: { ...user } },
+            ],
+          },
+        } as any),
+      false
+    );
     sendMessage(form);
   };
 
@@ -53,9 +70,9 @@ const Streams: NextPage = () => {
 
   useEffect(() => {
     scrollRef?.current?.scrollIntoView();
-    if (sendMessageData && sendMessageData.ok) {
-      mutate();
-    }
+    // if (sendMessageData && sendMessageData.ok) {
+    //   mutate();
+    // }
   }, [mutate, sendMessageData]);
 
   return (
