@@ -22,7 +22,7 @@ interface ItemDetailResponse {
 }
 
 const ItemDetail: NextPage = () => {
-  const { user, isLoading } = useUser();
+  const { user, isLoading } = useUser({});
   const router = useRouter();
   const { mutate: unBoundMutate } = useSWRConfig();
   const { data, mutate: boundMutate } = useSWR<ItemDetailResponse>(
