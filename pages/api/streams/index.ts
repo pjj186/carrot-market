@@ -10,7 +10,11 @@ async function handler(
   const {
     session: { user },
     body: { name, price, description },
+    query: { page },
   } = req;
+
+  const take = 10;
+  const backendPage = +page! - 1;
 
   if (req.method === "POST") {
     const stream = await client.stream.create({
@@ -32,7 +36,10 @@ async function handler(
   }
 
   if (req.method === "GET") {
-    const streams = await client.stream.findMany({ take: 10 });
+    const streams = await client.stream.findMany({
+      take,
+      skip: backendPage * take,
+    });
     res.json({ ok: true, streams });
   }
 }

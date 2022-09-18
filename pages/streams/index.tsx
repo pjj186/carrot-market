@@ -4,6 +4,7 @@ import FloatingButton from "@components/floating-button";
 import Layout from "@components/layout";
 import { Stream } from "@prisma/client";
 import useSWR from "swr";
+import { useEffect, useState } from "react";
 
 interface StreamsResponse {
   ok: boolean;
@@ -11,12 +12,33 @@ interface StreamsResponse {
 }
 
 const Streams: NextPage = () => {
-  const;
-  const { data } = useSWR<StreamsResponse>(`/api/streams`);
+  const [page, setPage] = useState(1);
+  const [mergedData, setMergedData] = useState<Stream[]>([]);
+
+  const { data } = useSWR<StreamsResponse>(`/api/streams?page=${page}`);
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setPage((prev) => prev + 1);
+    }
+  };
+  useEffect(() => {
+    if (data) setMergedData((prev) => prev.concat(data?.streams));
+  }, [data]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [setPage, page]);
+
   return (
     <Layout hasTabBar title="라이브">
       <div className=" divide-y-[1px] space-y-4">
-        {data?.streams.map((stream) => (
+        {mergedData.map((stream) => (
           <Link key={stream.id} href={`/streams/${stream.id}`}>
             <a className="pt-4 block  px-4">
               <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video" />
