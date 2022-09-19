@@ -35,16 +35,24 @@ const EditProfile: NextPage = () => {
     if (user?.phone) setValue("phone", user.phone);
     if (user?.name) setValue("name", user.name);
   }, [user, setValue]);
+
   const [editProfile, { data, loading }] =
     useMutation<EditProfileResponse>(`/api/users/me`);
-  const onValid = ({ email, phone, name, avater }: EditProfileForm) => {
+
+  const onValid = async ({ email, phone, name, avater }: EditProfileForm) => {
     if (loading) return;
     if (email === "" && phone === "" && name === "") {
       return setError("formErrors", {
         message: "Email or PhoneNumber are required. You need choose one.",
       });
     }
-    editProfile({ email, phone, name });
+    if (avatar && avatar.length > 0) {
+      const cloudFlareRequest = await (await fetch(`api/files`)).json();
+
+      editProfile({ email, phone, name, avatar });
+    } else {
+      editProfile({ email, phone, name });
+    }
   };
 
   useEffect(() => {
@@ -52,8 +60,10 @@ const EditProfile: NextPage = () => {
       setError("formErrors", { message: data.error });
     }
   }, [data, setError]);
+
   const [avatarPreview, setAvatarPreview] = useState("");
   const avatar = watch("avater");
+
   useEffect(() => {
     if (avatar && avatar.length > 0) {
       const file = avatar[0];
