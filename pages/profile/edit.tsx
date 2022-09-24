@@ -11,7 +11,8 @@ interface EditProfileForm {
   email?: string;
   phone?: string;
   name?: string;
-  avater?: FileList;
+  avatar?: FileList;
+  avatarId: string;
   formErrors?: string;
 }
 
@@ -34,12 +35,16 @@ const EditProfile: NextPage = () => {
     if (user?.email) setValue("email", user.email);
     if (user?.phone) setValue("phone", user.phone);
     if (user?.name) setValue("name", user.name);
+    if (user?.avatar)
+      setAvatarPreview(
+        `https://imagedelivery.net/DJ4KAEvQ7GPpnrP9HPsyuA/${user?.avatar}/public`
+      );
   }, [user, setValue]);
 
   const [editProfile, { data, loading }] =
     useMutation<EditProfileResponse>(`/api/users/me`);
 
-  const onValid = async ({ email, phone, name, avater }: EditProfileForm) => {
+  const onValid = async ({ email, phone, name, avatar }: EditProfileForm) => {
     if (loading) return;
     if (email === "" && phone === "" && name === "") {
       return setError("formErrors", {
@@ -47,16 +52,21 @@ const EditProfile: NextPage = () => {
       });
     }
     if (avatar && avatar.length > 0 && user) {
-      const { id, uploadURL } = await (await fetch(`/api/files`)).json();
+      const { uploadURL } = await (await fetch(`/api/files`)).json();
 
       const form = new FormData();
       form.append("file", avatar[0], user?.id + "");
-      await fetch(uploadURL, {
-        method: "POST",
-        body: form,
-      });
+      // Cloud Flare에서 전달한 빈 파일 URL에 form 데이터를 body에 담아 요청
+      const {
+        result: { id },
+      } = await (
+        await fetch(uploadURL, {
+          method: "POST",
+          body: form,
+        })
+      ).json();
 
-      editProfile({ email, phone, name, avatar });
+      editProfile({ email, phone, name, avatarId: id });
     } else {
       editProfile({ email, phone, name });
     }
@@ -70,7 +80,7 @@ const EditProfile: NextPage = () => {
 
   const [avatarPreview, setAvatarPreview] = useState("");
 
-  const avatar = watch("avater"); //
+  const avatar = watch("avatar"); //
 
   useEffect(() => {
     if (avatar && avatar.length > 0) {
@@ -97,7 +107,7 @@ const EditProfile: NextPage = () => {
           >
             Change
             <input
-              {...register("avater")}
+              {...register("avatar")}
               id="picture"
               type="file"
               className="hidden"

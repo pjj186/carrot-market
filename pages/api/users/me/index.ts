@@ -22,7 +22,7 @@ async function handler(
   if (req.method === "POST") {
     const {
       session: { user },
-      body: { email, phone, name }, // form에서 입력받은 이메일, 폰
+      body: { email, phone, name, avatarId }, // form에서 입력받은 이메일, 폰
     } = req;
 
     const currentUser = await client.user.findUnique({
@@ -90,6 +90,16 @@ async function handler(
         },
         data: {
           name,
+        },
+      });
+    }
+    if (avatarId) {
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          avatar: avatarId,
         },
       });
     }
