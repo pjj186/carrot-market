@@ -80,7 +80,7 @@ const EditProfile: NextPage = () => {
 
   const [avatarPreview, setAvatarPreview] = useState("");
 
-  const avatar = watch("avatar"); //
+  const avatar = watch("avatar"); // FileList
 
   useEffect(() => {
     if (avatar && avatar.length > 0) {
