@@ -25,7 +25,7 @@ const Profile: NextPage = () => {
         <div className="flex items-center mt-4 space-x-3">
           {user?.avatar ? (
             <img
-              src={`https://imagedelivery.net/DJ4KAEvQ7GPpnrP9HPsyuA/${user?.avatar}/public`}
+              src={`https://imagedelivery.net/DJ4KAEvQ7GPpnrP9HPsyuA/${user?.avatar}/avatar`}
               className="w-16 h-16 bg-slate-500 rounded-full"
             />
           ) : (
