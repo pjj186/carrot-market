@@ -36,7 +36,7 @@ const ItemDetail: NextPage = () => {
     toggleFav({});
     // unBoundMutate("/api/users/me", { ok: false }, false);
   };
-  console.log(data);
+
   return (
     <Layout canGoBack>
       <div className="px-4  py-4">
