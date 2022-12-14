@@ -7,3 +7,9 @@ category: thoughts
 # Second Post
 
 This is my Second post.
+
+Thank you for reading!
+
+- i
+- like
+- potatoes
