@@ -10,6 +10,9 @@ const nextConfig = {
       "customer-m033z5x00ks6nunl.cloudflarestream.com",
     ],
   },
+  experimental: {
+    reactRoot: true,
+  },
 };
 
 module.exports = nextConfig;
