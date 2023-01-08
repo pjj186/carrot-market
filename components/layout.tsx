@@ -55,7 +55,7 @@ export default function Layout({
       {hasTabBar ? (
         <nav className="bg-white max-w-xl text-gray-700 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
           <Link href="/">
-            <a
+            <span
               className={cls(
                 "flex flex-col items-center space-y-2 ",
                 router.pathname === "/"
@@ -78,10 +78,10 @@ export default function Layout({
                 ></path>
               </svg>
               <span>홈</span>
-            </a>
+            </span>
           </Link>
           <Link href="/community">
-            <a
+            <span
               className={cls(
                 "flex flex-col items-center space-y-2 ",
                 router.pathname === "/community"
@@ -104,10 +104,10 @@ export default function Layout({
                 ></path>
               </svg>
               <span>동네생활</span>
-            </a>
+            </span>
           </Link>
           <Link href="/chats">
-            <a
+            <span
               className={cls(
                 "flex flex-col items-center space-y-2 ",
                 router.pathname === "/chats"
@@ -130,10 +130,10 @@ export default function Layout({
                 ></path>
               </svg>
               <span>채팅</span>
-            </a>
+            </span>
           </Link>
           <Link href="/streams">
-            <a
+            <span
               className={cls(
                 "flex flex-col items-center space-y-2 ",
                 router.pathname === "/streams"
@@ -156,10 +156,10 @@ export default function Layout({
                 ></path>
               </svg>
               <span>라이브</span>
-            </a>
+            </span>
           </Link>
           <Link href="/profile">
-            <a
+            <span
               className={cls(
                 "flex flex-col items-center space-y-2 ",
                 router.pathname === "/profile"
@@ -182,7 +182,7 @@ export default function Layout({
                 ></path>
               </svg>
               <span>나의 캐럿</span>
-            </a>
+            </span>
           </Link>
         </nav>
       ) : null}

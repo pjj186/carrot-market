@@ -42,13 +42,13 @@ const Profile: NextPage = () => {
               )}
             </span>
             <Link href="/profile/edit">
-              <a className="text-sm text-gray-700">Edit profile &rarr;</a>
+              <span className="text-sm text-gray-700">Edit profile &rarr;</span>
             </Link>
           </div>
         </div>
         <div className="mt-10 flex justify-around">
           <Link href="/profile/sold">
-            <a className="flex flex-col items-center">
+            <span className="flex flex-col items-center">
               <div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
                 <svg
                   className="w-6 h-6"
@@ -68,10 +68,10 @@ const Profile: NextPage = () => {
               <span className="text-sm mt-2 font-medium text-gray-700">
                 판매내역
               </span>
-            </a>
+            </span>
           </Link>
           <Link href="/profile/bought">
-            <a className="flex flex-col items-center">
+            <span className="flex flex-col items-center">
               <div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
                 <svg
                   className="w-6 h-6"
@@ -91,10 +91,10 @@ const Profile: NextPage = () => {
               <span className="text-sm mt-2 font-medium text-gray-700">
                 구매내역
               </span>
-            </a>
+            </span>
           </Link>
           <Link href="/profile/loved">
-            <a className="flex flex-col items-center">
+            <span className="flex flex-col items-center">
               <div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
                 <svg
                   className="w-6 h-6"
@@ -114,7 +114,7 @@ const Profile: NextPage = () => {
               <span className="text-sm mt-2 font-medium text-gray-700">
                 관심목록
               </span>
-            </a>
+            </span>
           </Link>
         </div>
         {data?.reviews?.map((review) => {

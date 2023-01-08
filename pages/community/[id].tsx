@@ -101,9 +101,9 @@ const CommunityPostDetail: NextPage = () => {
               {data?.post.user.name}
             </p>
             <Link href={`users/profiles/${data?.post?.user?.id}`}>
-              <a className="text-xs font-medium text-gray-500">
+              <span className="text-xs font-medium text-gray-500">
                 View profile &rarr;
-              </a>
+              </span>
             </Link>
           </div>
         </div>

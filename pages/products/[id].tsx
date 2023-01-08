@@ -69,9 +69,9 @@ const ItemDetail: NextPage = () => {
                 <Skeleton animation="wave" width={80} height="auto" />
               ) : (
                 <Link href={`users/profiles/${data?.product?.user?.id}`}>
-                  <a className="text-xs font-medium text-gray-500">
+                  <span className="text-xs font-medium text-gray-500">
                     View profile &rarr;
-                  </a>
+                  </span>
                 </Link>
               )}
             </div>

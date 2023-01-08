@@ -31,7 +31,7 @@ const Community: NextPage<PostsResponse> = ({ posts }) => {
       <div className="space-y-4 divide-y-[2px]">
         {posts?.map((post) => (
           <Link key={post.id} href={`/community/${post.id}`}>
-            <a className="flex cursor-pointer flex-col pt-4 items-start">
+            <span className="flex cursor-pointer flex-col pt-4 items-start">
               <span className="flex ml-4 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
                 동네질문
               </span>
@@ -79,7 +79,7 @@ const Community: NextPage<PostsResponse> = ({ posts }) => {
                   <span>답변 {post._count?.answers}</span>
                 </span>
               </div>
-            </a>
+            </span>
           </Link>
         ))}
         <FloatingButton href="/community/write">

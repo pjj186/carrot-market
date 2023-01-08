@@ -21,14 +21,14 @@ const Blog: NextPage<{ posts: Post[] }> = ({ posts }) => {
       {posts.map((post, index) => (
         <div key={index} className="mb-5">
           <Link href={`/blog/${post.slug}`}>
-            <a>
+            <span>
               <span className="text-lg text-red-500">{post.title}</span>
               <div>
                 <span>
                   {post.date} / {post.category}
                 </span>
               </div>
-            </a>
+            </span>
           </Link>
         </div>
       ))}
