@@ -19,17 +19,17 @@ const Post: NextPage<{ post: string; data: any }> = ({ post, data }) => {
 
 // 정적 페이지의 path를 알려주는 역할
 export function getStaticPaths() {
-  const files = readdirSync("./posts").map((file) => {
-    const [name, extension] = file.split(".");
-    return {
-      params: {
-        slug: name,
-      },
-    };
-  });
+  // const files = readdirSync("./posts").map((file) => {
+  //   const [name, extension] = file.split(".");
+  //   return {
+  //     params: {
+  //       slug: name,
+  //     },
+  //   };
+  // });
   return {
-    paths: files, // 핵심
-    fallback: false,
+    paths: [], // 핵심
+    fallback: "blocking",
   };
 }
 
