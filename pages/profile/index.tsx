@@ -8,7 +8,7 @@ import { Review, User } from "@prisma/client";
 import { withSsrSession } from "@libs/server/withSession";
 import client from "@libs/server/client";
 import { cls } from "@libs/client/utils";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 interface ReviewWithUser extends Review {
   createdBy: User;
@@ -20,7 +20,13 @@ interface ReviewsResponse {
 }
 
 const Reviews = () => {
-  const { data } = useSWR<ReviewsResponse>("/api/reviews");
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    setUrl("/api/reviews");
+  }, []);
+  const { data } = useSWR<ReviewsResponse>(
+    typeof window === "undefined" ? null : url
+  );
   return (
     <>
       {data?.reviews?.map((review) => {
